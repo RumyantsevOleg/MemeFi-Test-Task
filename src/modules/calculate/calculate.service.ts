@@ -81,13 +81,15 @@ export class CalculateService {
     while (operations.length) {
       evaluate();
     }
-
-    const result = numbersStack[0];
     if (numbersStack.length !== 1) {
       throw new Error("Invalid expression: Too many operands or operators");
     }
 
     // Todo Is it enough to solve problem with floating-point arithmetic errors
-    return Number(result.toFixed(15));
+    const result = Number(numbersStack[0].toFixed(15));
+
+    console.log("result", result);
+
+    return result;
   }
 }
