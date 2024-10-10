@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
-import { EvaluateService } from "./evaluate.service";
-import { EvaluateController } from "./evaluate.controller";
+import { CalculateController } from "./calculate.controller";
 import { ClientsModule, Transport } from "@nestjs/microservices";
 import { QUEUE_INFO } from "../../common/constants/common.constants";
+import { CalculateService } from "./calculate.service";
 
 @Module({
   imports: [
@@ -20,7 +20,7 @@ import { QUEUE_INFO } from "../../common/constants/common.constants";
       },
     ]),
   ],
-  controllers: [EvaluateController],
-  providers: [EvaluateService],
+  controllers: [CalculateController],
+  providers: [CalculateService],
 })
-export class EvaluateModule {}
+export class CalculateModule {}

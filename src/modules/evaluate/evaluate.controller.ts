@@ -10,9 +10,11 @@ export class EvaluateController {
   constructor(private readonly evaluateService: EvaluateService) {}
 
   @TypedRoute.Post("/")
-  public evaluate(@TypedBody() body: EvaluateDto): EvaluateResponse {
+  public async evaluate(
+    @TypedBody() body: EvaluateDto,
+  ): Promise<EvaluateResponse> {
     try {
-      const result = this.evaluateService.evaluate(body.expression);
+      const result = await this.evaluateService.evaluate(body.expression);
 
       return { result };
     } catch (err) {
