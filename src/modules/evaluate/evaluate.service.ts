@@ -4,6 +4,7 @@ import {
   QUEUE_INFO,
 } from "../../common/constants/common.constants";
 import { ClientProxy } from "@nestjs/microservices";
+import { lastValueFrom } from "rxjs";
 
 @Injectable()
 export class EvaluateService {
@@ -13,12 +14,14 @@ export class EvaluateService {
   ) {}
 
   public async evaluate(expression: string): Promise<number> {
-    const result = await this.queueClient.emit(
-      MESSAGE_PATTERNS.workerMessagePattern,
-      JSON.stringify(expression),
+    const result = await lastValueFrom(
+      this.queueClient.send(
+        MESSAGE_PATTERNS.workerMessagePattern,
+        JSON.stringify(expression),
+      ),
     );
-    console.log("result", JSON.stringify(result));
 
-    return 777;
+    // Response from the worker
+    return result;
   }
 }
