@@ -8,7 +8,7 @@ export class CalculateController {
   constructor(private readonly calculateService: CalculateService) {}
 
   @MessagePattern(MESSAGE_PATTERNS.workerMessagePattern)
-  public calculate(data: any) {
-    return this.calculateService.calculate(data);
+  public async calculate(data: any) {
+    return await this.calculateService.calculate(data);
   }
 }

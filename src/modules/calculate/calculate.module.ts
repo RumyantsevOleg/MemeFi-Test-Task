@@ -4,6 +4,8 @@ import { ClientsModule, Transport } from "@nestjs/microservices";
 import { QUEUE_INFO } from "../../common/constants/common.constants";
 import { CalculateService } from "./calculate.service";
 
+// Todo we can scale this module to increase performance of calculations
+//  It can be separate processes or we can use worker_threads, etc...
 @Module({
   imports: [
     ClientsModule.register([
