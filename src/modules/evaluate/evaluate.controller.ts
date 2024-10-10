@@ -14,11 +14,8 @@ export class EvaluateController {
     @TypedBody() body: EvaluateDto,
   ): Promise<EvaluateResponse> {
     try {
-      const result = await this.evaluateService.evaluate(body.expression);
-
-      return { result };
+      return await this.evaluateService.evaluate(body.expression);
     } catch (err) {
-      // Todo implement logger
       console.log(err);
       return { errorMessage: err.message };
     }

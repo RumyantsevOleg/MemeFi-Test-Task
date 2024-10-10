@@ -13,8 +13,11 @@ export class CalculateService {
   }
 
   public async calculate(expression: any) {
-    const res = await this.calculatorWorker.runTask(expression);
-
-    return res;
+    try {
+      const result = await this.calculatorWorker.runTask(expression);
+      return { result };
+    } catch (err) {
+      return { errorMessage: err.message };
+    }
   }
 }

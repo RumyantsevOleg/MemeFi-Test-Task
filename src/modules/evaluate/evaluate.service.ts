@@ -5,6 +5,9 @@ import {
 } from "../../common/constants/common.constants";
 import { ClientProxy } from "@nestjs/microservices";
 import { lastValueFrom } from "rxjs";
+import { EvaluateResponse } from "./evaluate.dto";
+import { IdentifierFactory } from "typia/lib/factories/IdentifierFactory";
+import { assert } from "typia";
 
 @Injectable()
 export class EvaluateService {
@@ -13,15 +16,11 @@ export class EvaluateService {
     private readonly queueClient: ClientProxy, // rabbitMq client
   ) {}
 
-  public async evaluate(expression: string): Promise<number> {
-    const result = await lastValueFrom(
-      this.queueClient.send(
-        MESSAGE_PATTERNS.workerMessagePattern,
-        JSON.stringify(expression),
-      ),
+  public async evaluate(expression: string): Promise<EvaluateResponse> {
+    const response = await lastValueFrom(
+      this.queueClient.send(MESSAGE_PATTERNS.workerMessagePattern, expression),
     );
 
-    // Response from the worker
-    return result;
+    return assert<EvaluateResponse>(response);
   }
 }
