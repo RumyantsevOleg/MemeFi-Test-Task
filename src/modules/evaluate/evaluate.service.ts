@@ -85,7 +85,7 @@ export class EvaluateService {
       throw new Error("Invalid expression: Too many operands or operators");
     }
 
-    // Todo it is problem with floating-point arithmetic errors
-    return result;
+    // Todo Is it enough to solve problem with floating-point arithmetic errors
+    return Number(result.toFixed(15));
   }
 }
