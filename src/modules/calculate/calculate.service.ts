@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { CalculatorWorker } from "./workerPool";
+import { cpus } from "node:os";
 
 @Injectable()
 export class CalculateService {
@@ -7,12 +8,12 @@ export class CalculateService {
 
   constructor() {
     // Todo this can be improved with DI and etc...
-    this.calculatorWorker = new CalculatorWorker(1);
+    const numCPUs = cpus().length > 1 ? cpus().length - 1 : 1;
+    this.calculatorWorker = new CalculatorWorker(numCPUs);
   }
 
   public async calculate(expression: any) {
     const res = await this.calculatorWorker.runTask(expression);
-    console.log("res >> ", res);
 
     return res;
   }
