@@ -35,6 +35,9 @@ $ npm install
 ## Compile and run the project
 
 ```bash
+# RabbitMQ run
+$ docker-compose up
+
 # development
 $ npm run start
 

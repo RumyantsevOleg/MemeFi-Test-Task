@@ -1,9 +1,11 @@
 import { Module } from "@nestjs/common";
-import { EvaluateService } from "./evaluate.service";
-import { EvaluateController } from "./evaluate.controller";
+import { CalculateController } from "./calculate.controller";
 import { ClientsModule, Transport } from "@nestjs/microservices";
 import { QUEUE_INFO } from "../../common/constants/common.constants";
+import { CalculateService } from "./calculate.service";
 
+// Todo we can scale this module to increase performance of calculations
+//  It can be separate processes or we can use worker_threads, etc...
 @Module({
   imports: [
     ClientsModule.register([
@@ -20,7 +22,7 @@ import { QUEUE_INFO } from "../../common/constants/common.constants";
       },
     ]),
   ],
-  controllers: [EvaluateController],
-  providers: [EvaluateService],
+  controllers: [CalculateController],
+  providers: [CalculateService],
 })
-export class EvaluateModule {}
+export class CalculateModule {}
