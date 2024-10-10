@@ -7,7 +7,7 @@ import { AppModule } from "./app.module";
 import { SwaggerModule } from "@nestjs/swagger";
 import { NestiaSwaggerComposer } from "@nestia/sdk";
 
-const PORT = process.env.PORT || 4001;
+const PORT = process.env.PORT || 8080;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,12 +16,12 @@ async function bootstrap() {
   const document = await NestiaSwaggerComposer.document(app, {
     servers: [
       {
-        url: "http://localhost:4001",
+        url: "http://localhost:8080",
         description: "Local server",
       },
     ],
   });
-  SwaggerModule.setup("api", app, document as any);
+  SwaggerModule.setup("/", app, document as any);
 
   await app.listen(PORT);
 }
